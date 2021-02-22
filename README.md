@@ -37,7 +37,7 @@ TEMPLATES = [
 Let's say you want to make a variable called `currency` available in all templates. 
 Put this code in a file where it gets loaded on startup (such as project's or app's `__init__.py` or `apps.py` file).
 
-```
+```python
 from quick_context import ContextRegistry
 
 ContextRegistry.register(name='currency', value='USD')
