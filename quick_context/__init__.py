@@ -42,12 +42,22 @@ class ContextModelEntry:
     def __init__(self, model, lookup_field):
         self.model = model
         self.lookup_field = lookup_field
+        self.filter_exp = None
 
     def __getattr__(self, attr):
-        try:
-            return self.model.objects.get(**{self.lookup_field: attr})
-        except self.model.DoesNotExist:
-            return None
+        if attr.startswith('filter__'):
+            self.filter_exp = attr.split('__')[1]
+            return self
+        
+        if self.filter_exp:
+            return self.model.objects.filter(**{
+                '%s__%s' % (self.lookup_field, self.filter_exp): attr,
+                })
+        else:
+            try:
+                return self.model.objects.get(**{self.lookup_field: attr})
+            except self.model.DoesNotExist:
+                return None
 
 
 class DuplicateContextEntry(Exception):

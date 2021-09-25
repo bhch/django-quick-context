@@ -125,6 +125,24 @@ because behind the scenes, `quick_context` just does a `Model.objects.get(...)` 
 and `get` expects a single result from the database. If there are more than one results, 
 Django will throw a `MultipleObjectsReturned` exception.
 
+### Fetching multiple objects and filtering queryset
+
+Since version 1.2, support for basic filtering has been added.
+
+You can fetch multiple objects by applying a filter on the lookup field:
+
+```
+{% for notice in quick.notice.filter__icontains.homepage %}
+     {{ notice.message }}
+{% endfor %}
+```
+
+The above is equivalent to:
+
+```python
+Notice.objects.filter(name__icontains='homepage')
+```
+
 ## API
 
 #### `ContextRegistry.register(cls, name, value)`
