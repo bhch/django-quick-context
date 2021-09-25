@@ -50,9 +50,11 @@ class ContextModelEntry:
             return self
         
         if self.filter_exp:
-            return self.model.objects.filter(**{
+            qs = self.model.objects.filter(**{
                 '%s__%s' % (self.lookup_field, self.filter_exp): attr,
                 })
+            self.filter_exp = None
+            return qs
         else:
             try:
                 return self.model.objects.get(**{self.lookup_field: attr})
