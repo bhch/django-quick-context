@@ -52,7 +52,7 @@ class ContextModelEntry:
         if self.filter_exp:
             qs = self.model.objects.filter(**{
                 '%s__%s' % (self.lookup_field, self.filter_exp): attr,
-                })
+                }).order_by(self.lookup_field)
             self.filter_exp = None
             return qs
         else:
