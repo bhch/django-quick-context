@@ -68,3 +68,13 @@ class DuplicateContextEntry(Exception):
 
 class EntryNotFound(Exception):
     pass
+
+
+try:
+    from django.conf import settings
+except ImportError:
+    settings = None
+
+
+if settings:
+    ContextRegistry.register('settings', settings)
