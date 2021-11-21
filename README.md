@@ -4,7 +4,7 @@ A django app for quickly setting global context variables on all templates.
 
 It also allows fetching model instances from the database directly in the templates, which can be 
 very useful in certain cases such as when the views are controlled by a third party app. 
-See [Example 2](#example-2) for more.
+See [Example 3](#example-3) for more.
 
 ## Installation
 
@@ -34,6 +34,17 @@ TEMPLATES = [
 
 ### Example 1
 
+Since version 1.4, this app allows you to access your Django project's settings
+effortlessly.
+
+So, in your templates you can do this to access the settings:
+
+```
+{{ quick.settings.SOME_VARIABLE }}
+```
+
+### Example 2
+
 Let's say you want to make a variable called `currency` available in all templates. 
 Put this code in a file where it gets loaded on startup (such as project's or app's `__init__.py` or `apps.py` file).
 
@@ -53,7 +64,7 @@ So, you can access the `currency` variable in the templates like this:
 {{ quick.currency }}
 ```
 
-### Example 2
+### Example 3
 
 This is a more useful case for using `quick_context`. 
 
